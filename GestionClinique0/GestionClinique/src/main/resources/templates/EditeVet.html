@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="index.html">
+
+<head>
+    <!-- Meta tags -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <!-- Site Metas -->
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Edit Vet</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="webjars/bootstrap/5.3.3/css/bootstrap.min.css" />
+
+    <!-- Additional Custom Style -->
+    <style>
+        .form_container {
+            background: #f6f6f6;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form_container input[type="text"],
+        .form_container select {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            background: #e8e8e8;
+        }
+
+        .form_container button[type="submit"] {
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            background: #007bff;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .form_container button[type="submit"]:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+<div layout:fragment="content">
+    <main class="container mt-5">
+        <div class="col-md-6 offset-md-3 form_container">
+            <div class="heading_container">
+                <img src="/images/heading-img.png" alt="">
+                <h2>
+                    Edit Vet
+                </h2>
+                <p>
+                    Please update the details of the vet.
+                </p>
+            </div>
+            <form th:action="@{updateVet}" method="post">
+                <div>
+                    <input class="form-control" type="text" id="id" name="id" th:value="${vet.id}" placeholder="ID">
+                </div>
+
+                <div>
+                    <input class="form-control" type="text" id="firstName" name="nom" th:value="${vet.nom}" placeholder="First Name">
+                </div>
+                <div>
+                    <input class="form-control" type="text" id="address" name="address" th:value="${vet.address}" placeholder="Address">
+                </div>
+                <div>
+                    <label for="cliniqueId">Clinic : </label>
+                    <select class="form-control" id="cliniqueId" name="cliniqueId" required>
+                        <option th:each="clinique : ${cliniques}" th:value="${clinique.id}" th:text="${clinique.nom}"
+                                th:selected="${clinique.id == vet.clinique.id}"></option>
+                    </select>
+                </div>
+                <div class="d-flex justify-content-between"> <!-- Added d-flex and justify-content-between for spacing -->
+                    <button type="submit" class="btn btn-primary" style="width: calc(50% - 5px); padding: 15px; border-radius: 5px; background: #007bff; color: #fff; cursor: pointer; transition: all 0.3s ease;">
+                        Update
+                    </button>
+                    <a th:href="@{VetList}" class="btn btn-primary" style="width: calc(50% - 5px); padding: 15px; border-radius: 5px; background: #007bff; color: #fff; cursor: pointer; transition: all 0.3s ease;">
+                        Vet List
+                    </a>
+
+            </form>
+        </div>
+    </main>
+</div>
+<script type="text/javascript" src="/js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="/js/bootstrap.js"></script>
+<script>
+    function openNav() {
+        document.getElementById("myNav").classList.toggle("menu_width")
+        document.querySelector(".custom_menu-btn").classList.toggle("menu_btn-style")
+    }
+</script>
+</body>
+</html>

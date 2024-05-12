@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="index.html">
+
+<head>
+    <!-- Meta tags -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <!-- Site Metas -->
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Visit Edition</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="webjars/bootstrap/5.3.3/css/bootstrap.min.css" />
+
+    <!-- Additional Custom Style -->
+    <style>
+        .form_container {
+            background: #f6f6f6;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form_container input[type="text"],
+        .form_container input[type="number"],
+        .form_container select {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            background: #e8e8e8;
+        }
+
+        .form_container button[type="submit"] {
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            background: #007bff;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .form_container button[type="submit"]:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+<div layout:fragment="content">
+    <main class="container mt-5">
+        <div class="col-md-6 offset-md-3 form_container">
+            <div class="heading_container">
+                <h2>
+                    Edit Visit
+                </h2>
+                <p>
+                    Please update the details of the visit.
+                </p>
+            </div>
+            <form th:action="@{/updateVisit}" method="post">
+                <div class="form-group">
+                    <label class="form-label" for="id">ID:</label>
+                    <input class="form-control" type="text" id="id" name="id" th:value="${visit.id}" readonly>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="animalId">Animal:</label>
+                    <select class="form-control" id="animalId" name="animalId">
+                        <option th:each="animal : ${animals}" th:value="${animal.id}" th:text="${animal.nom}" th:selected="${animal.id == visit.animal.id}">Animal Name</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="medecinId">Médecin:</label>
+                    <select class="form-control" id="medecinId" name="medecinId">
+                        <option th:each="medecin : ${medecins}" th:value="${medecin.id}" th:text="${medecin.nom}" th:selected="${medecin.id == visit.medecin.id}">Doctor Name</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="newPrescription">New Prescription:</label>
+                    <input class="form-control" type="text" id="newPrescription" name="newPrescription" th:value="${visit.prescription}">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="newType">New Type:</label>
+                    <input class="form-control" type="text" id="newType" name="newType" th:value="${visit.type}">
+                </div>
+                <label class="form-label" for="dateRDV">Date du rendez-vous:</label>
+                <input class="form-control" type="date" id="dateRDV" name="dateRDV" th:value="${rendezV != null ? rendezV.dateRDV : ''}">
+
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </div>
+            </form>
+        </div>
+    </main>
+</div>
+</body>
+
+</html>

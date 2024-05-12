@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="index.html">
+<head>
+    <!-- Meta tags -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <!-- Site Metas -->
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <title>Clinique List</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Poppins:400,700&display=swap" rel="stylesheet">
+
+    <!-- Custom styles -->
+    <link href="/css/style.css" rel="stylesheet" />
+    <!-- Responsive style -->
+    <link href="/css/responsive.css" rel="stylesheet" />
+    <!-- Additional Custom Style -->
+    <style>
+        .table_container {
+            background: #f6f6f6;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        .table_container table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table_container th,
+        .table_container td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .table_container th {
+            background-color: #ffdd00;
+            color: #fff;
+        }
+
+        .table_container tbody tr:hover {
+            background-color: #f2f2f2;
+        }
+
+        .table_container .btn-danger,
+        .table_container .btn.bg-success {
+            padding: 5px 10px;
+            border-radius: 5px;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+<div layout:fragment="content">
+    <main class="container mt-5">
+        <div class="col-md-10 offset-md-1 table_container">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Adresse</th>
+                    <th scope="col">Actions</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr th:each="clinique : ${cliniques}">
+                    <td th:text="${clinique.id}"></td>
+                    <td th:text="${clinique.nom}"></td>
+                    <td th:text="${clinique.address}"></td>
+                    <td th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+                        <a class="btn btn-danger"
+                           onclick="return confirm('Are you sure to delete this owner!')"
+                           th:href="@{deleteClinique(id=${clinique.id})}">
+                            Delete
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <ul class="nav nav-pills">
+                <li th:each="page,status:${pages}"
+                    th:class="${status.index==currentPage ? 'nav-item active' : 'nav-item'}">
+                    <a class="nav-link"
+                       th:href="@{cliniqueList(page=${status.index}, size=${size})}"
+                       th:text="${status.index + 1}"></a>
+                </li>
+            </ul>
+        </div>
+
+    </main>
+</div>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="index.html">
+
+
+<head>
+    <!-- Meta tags -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <!-- Site Metas -->
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <title>Owners List</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Poppins:400,700&display=swap" rel="stylesheet">
+
+    <!-- Custom styles -->
+    <link href="/css/style.css" rel="stylesheet" />
+    <!-- Responsive style -->
+    <link href="/css/responsive.css" rel="stylesheet" />
+    <!-- Additional Custom Style -->
+    <style>
+        .table_container {
+            background: #f6f6f6;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        .table_container table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table_container th,
+        .table_container td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .table_container th {
+            background-color: #ffdd00;
+            color: #fff;
+        }
+
+        .table_container tbody tr:hover {
+            background-color: #f2f2f2;
+        }
+
+        .table_container .btn-danger,
+        .table_container .btn.bg-success {
+            padding: 5px 10px;
+            border-radius: 5px;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+
+<body>
+<div layout:fragment="content">
+    <main class="container mt-5">
+        <div class="col-md-10 offset-md-1 table_container">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Ville</th>
+                    <th scope="col">Phone</th>
+                    <th scope="col">Actions</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr th:each="owner : ${ownersVue.content}">
+                    <td th:text="${owner.id}"></td>
+                    <td th:text="${owner.nom}"></td>
+                    <td th:text="${owner.lastname}"></td>
+                    <td th:text="${owner.address}"></td>
+                    <td th:text="${owner.ville}"></td>
+                    <td th:text="${owner.telephone}"></td>
+                    <td>
+                        <a class="btn btn-danger"
+                           onclick="return confirm('Are you sure to delete this owner!')"
+                           th:href="@{deleteOwner(id=${owner.id})}">
+                            Delete
+                        </a>
+                        <a class="btn bg-success"
+                           th:href="@{editeOwner(id=${owner.id})}">
+                            Edit
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <ul class="nav nav-pills">
+                <li th:each="page,status:${pages}"
+                    th:class="${status.index==currentPage ? 'nav-item active' : 'nav-item'}">
+                    <a class="nav-link"
+                       th:href="@{OwnersList(page=${status.index}, size=${size})}"
+                       th:text="${status.index + 1}"></a>
+                </li>
+            </ul>
+        </div>
+    </main>
+</div>
+</body>
+
+</html>

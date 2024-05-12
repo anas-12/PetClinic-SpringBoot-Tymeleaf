@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="index.html">
+
+<head>
+    <!-- Basic -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <!-- Site Metas -->
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+
+    <title>Vet List</title>
+
+    <!-- bootstrap core css -->
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
+
+    <!-- fonts style -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Poppins:400,700&display=swap" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="/css/style.css" rel="stylesheet" />
+    <!-- responsive style -->
+    <link href="/css/responsive.css" rel="stylesheet" />
+
+    <!-- Additional Custom Style -->
+    <style>
+        .table_container {
+            background: #f6f6f6;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        .table_container table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table_container th,
+        .table_container td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .table_container th {
+            background-color: #ffdd00;
+            color: #fff;
+        }
+
+        .table_container tbody tr:hover {
+            background-color: #f2f2f2;
+        }
+
+        .table_container .btn-danger,
+        .table_container .btn.bg-success {
+            padding: 5px 10px;
+            border-radius: 5px;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+
+<body>
+<div layout:fragment="content">
+    <main class="container mt-5">
+        <div class="col-md-8 offset-md-2 table_container">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Clinique</th>
+                    <th scope="col">Actions</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr th:each="vet:${VetVue}">
+                    <td th:text="${vet.id}"></td>
+                    <td th:text="${vet.nom}"></td>
+                    <td th:text="${vet.address}"></td>
+                    <td th:text="${vet.clinique != null ? vet.clinique.nom : ''}"></td>
+                    <td th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+                        <a class="btn btn-danger"
+                           onclick="return confirm('Are you sure to delete this Vet!')"
+                           th:href="@{deleteVet(id=${vet.id})}">
+                            Delete
+                        </a>
+                        <a class="btn bg-success"
+                           th:href="@{editeVet(id=${vet.id})}">
+                            Edit
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <ul class="nav nav-pills">
+                <li th:each="page,status:${pages}"
+                    th:class="${status.index==currentPage ? 'nav-item active' : 'nav-item'}">
+                    <a class="nav-link"
+                       th:href="@{VetList(page=${status.index}, size=${size})}"
+                       th:text="${status.index + 1}"></a>
+                </li>
+            </ul>
+        </div>
+    </main>
+</div>
+
+<script type="text/javascript" src="/js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="/js/bootstrap.js"></script>
+<script>
+    function openNav() {
+        document.getElementById("myNav").classList.toggle("menu_width")
+        document.querySelector(".custom_menu-btn").classList.toggle("menu_btn-style")
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="index.html">
+    <head>
+        <!-- Meta tags -->
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <!-- Site Metas -->
+        <meta name="keywords" content="" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+
+        <title>Visit Creation</title>
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
+
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans|Poppins:400,700&display=swap" rel="stylesheet">
+
+        <!-- Custom styles -->
+        <link href="/css/style.css" rel="stylesheet" />
+        <!-- Responsive style -->
+        <link href="/css/responsive.css" rel="stylesheet" />
+        <!-- Additional Custom Style -->
+        <style>
+            .form_container {
+                background: #f6f6f6;
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            }
+
+            .form_container input[type="text"],
+            .form_container select {
+                width: 100%;
+                padding: 15px;
+                margin: 10px 0;
+                border: none;
+                border-radius: 5px;
+                background: #e8e8e8;
+            }
+
+            .form_container button[type="submit"] {
+                width: calc(50% - 5px); /* 50% of the container width */
+                padding: 15px;
+                border: none;
+                border-radius: 5px;
+                background: #007bff;
+                color: #fff;
+                cursor: pointer;
+                transition: all 0.3s ease;
+            }
+
+            .form_container button[type="submit"]:hover {
+                background: #0056b3;
+            }
+        </style>
+    </head>
+<body>
+<div layout:fragment="content">
+    <main class="container mt-5">
+        <div class="col-md-6 offset-md-3 form_container">
+            <div class="heading_container">
+                <img src="/images/heading-img.png" alt="">
+                <h2>Visit Creation</h2>
+                <p>Please fill out the form to create a visit.</p>
+            </div>
+            <form th:action="@{saveVisit}" method="post">
+                <div class="form-group">
+                    <label class="form-label" for="animalId">Animal :</label>
+                    <select class="form-control" id="animalId" name="animalId">
+                        <option value="">Select Animal</option>
+                        <option th:each="animal : ${animals}" th:value="${animal.id}" th:text="${animal.nom}"></option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="medecinId">Médecin :</label>
+                    <select class="form-control" id="medecinId" name="medecinId">
+                        <option value="">Select Doctor</option>
+                        <option th:each="medecin : ${medecins}" th:value="${medecin.id}" th:text="${medecin.nom}"></option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="newPrescription">New Prescription :</label>
+                    <input type="text" class="form-control" id="newPrescription" name="newPrescription" placeholder="Enter new prescription">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="newType">New Type :</label>
+                    <input type="text" class="form-control" id="newType" name="newType" placeholder="Enter new type">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="dateRDV">Date de rendez-vous :</label>
+                    <input type="date" class="form-control" id="dateRDV" name="dateRDV" placeholder="Enter rendez-vous date">
+                </div>
+
+                <div class="d-flex justify-content-between"> <!-- Added d-flex and justify-content-between for spacing -->
+                    <button type="submit" style="width: calc(50% - 5px); padding: 15px; border: none; border-radius: 5px; background: #007bff; color: #fff; cursor: pointer; transition: all 0.3s ease;">
+                        Register
+                    </button>
+                    <a th:href="@{visitList}" class="btn btn-primary" style="width: calc(50% - 5px); padding: 15px; border-radius: 5px; background: #007bff; color: #fff; cursor: pointer; transition: all 0.3s ease;">
+                        Visit List
+                    </a>
+                </div>
+            </form>
+        </div>
+    </main>
+</div>
+</body>
+</html>

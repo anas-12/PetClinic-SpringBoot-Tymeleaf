@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="index.html">
+<head>
+    <!-- Meta tags -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <!-- Site Metas -->
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <title>Clinique Creation</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Poppins:400,700&display=swap" rel="stylesheet">
+
+    <!-- Custom styles -->
+    <link href="/css/style.css" rel="stylesheet" />
+    <!-- Responsive style -->
+    <link href="/css/responsive.css" rel="stylesheet" />
+</head>
+
+<body>
+<div layout:fragment="content">
+    <main class="container mt-5">
+        <div class="col-md-6 offset-md-3">
+            <div class="form_container" style="background: #f6f6f6; padding: 20px; border-radius: 10px; box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);">
+                <div class="heading_container">
+                    <img src="/images/heading-img.png" alt="">
+                    <h2>
+                        Clinique Registration
+                    </h2>
+                    <p>
+                        Please fill out the form to register your clinique.
+                    </p>
+                </div>
+                <form th:action="@{saveClinique}" method="post">
+                    <div>
+                        <input type="text" placeholder="Clinique Name" name="nom" style="width: 100%; padding: 15px; margin: 10px 0; border: none; border-radius: 5px; background: #e8e8e8;">
+                    </div>
+                    <div>
+                        <input type="text" placeholder="Address" name="address" style="width: 100%; padding: 15px; margin: 10px 0; border: none; border-radius: 5px; background: #e8e8e8;">
+                    </div>
+                    <div class="d-flex justify-content-between"> <!-- Added d-flex and justify-content-between for spacing -->
+                        <button type="submit" style="width: calc(50% - 5px); padding: 15px; border: none; border-radius: 5px; background: #007bff; color: #fff; cursor: pointer; transition: all 0.3s ease;">
+                            Register
+                        </button>
+                        <a th:href="@{cliniqueList}" class="btn btn-primary" style="width: calc(50% - 5px); padding: 15px; border-radius: 5px; background: #007bff; color: #fff; cursor: pointer; transition: all 0.3s ease;">
+                            Clinique List
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script type="text/javascript" src="/js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="/js/bootstrap.js"></script>
+<script>
+    function openNav() {
+        document.getElementById("myNav").classList.toggle("menu_width")
+        document.querySelector(".custom_menu-btn").classList.toggle("menu_btn-style")
+    }
+</script>
+</body>
+</html>
